@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>给小朋友送空气</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // 动态设置众筹信息
+            var data = {
+                money: 10,
+                target: 23,
+                people: 11,
+                day: 111,
+            }
+            $("#money").html(data.money);
+            $("#target").html(data.target);
+            $("#people").html(data.people);
+            $("#day").html(data.day);
+
+            var strProgress = data.money/data.target*100 + "%";
+            $("#progress").css("width",strProgress);
+
+
+            $("#container-pay").hide();
+            $("#btn-support").click(function () {
+                console.log("click");
+                $("#container-pay").show();
+            });
+            $("#mask").click(function () {
+                $("#container-pay").hide();
+            })
+            $(".btn-money").click(function () {
+                $(".btn-money").removeClass("btn-money-selected");
+                $(this).addClass("btn-money-selected");
+            });
+
+            // 获取openid
+            $("#btn-pay").click(function(){
+                $.get("https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN",function(data,status){
+                alert("Data:" + data + "nStatus: " + status);
+                alert("openid:" + data.openid);
+            })
+            })
+            
+
+        });
+
+    </script>
+</head>
+<body>
+<div class="my-container">
+    <div id="myCarousel" class="carousel slide flex-item" data-ride="carousel">
+        <!-- 轮播（Carousel）指标 -->
+        <!--<ol class="carousel-indicators">-->
+            <!--<li data-target="#myCarousel" data-slide-to="0" class="active"></li>-->
+            <!--<li data-target="#myCarousel" data-slide-to="1"></li>-->
+            <!--<li data-target="#myCarousel" data-slide-to="2"></li>-->
+        <!--</ol>-->
+        <!-- 轮播（Carousel）项目 -->
+        <div class="carousel-inner">
+            <div class="item active">
+                <img src="images/child1.jpg" alt="First slide">
+                <!--<div class="carousel-caption">标题 1</div>-->
+            </div>
+            <div class="item">
+                <img src="images/aircleaner.jpg" alt="Second slide">
+                <!--<div class="carousel-caption">标题 2</div>-->
+            </div>
+            <div class="item">
+                <img src="images/goodair.jpg" alt="Third slide">
+                <!--<div class="carousel-caption">标题 3</div>-->
+            </div>
+        </div>
+        <!-- 轮播（Carousel）导航 -->
+        <a class="carousel-control left" href="#myCarousel"
+           data-slide="prev">&lsaquo;
+        </a>
+        <a class="carousel-control right" href="#myCarousel"
+           data-slide="next">&rsaquo;
+        </a>
+        <div class="cover">
+            <img class="cover-img" src="images/aircleaner.jpg" alt="">
+            <div class="cover-text">捐空气净化器</div>
+        </div>
+    </div>
+    <!--<img class="flex-item" width="100%;" src="images/child1.jpg" alt="">-->
+    <div class="flex-item ticket">
+        <div>
+            <p>已筹</p>
+            <p>¥<span id="money">0</span></p>
+        </div>
+        <div>
+            <div class="progress" style="height: 10px;position: relative; top:10px;">
+                <div id="progress" class="progress-bar progress-bar-warning" role="progressbar"
+                     aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+                     style="width: 60%;">
+                    <!--<span class="sr-only">20% 完成（警告）</span>-->
+                </div>
+            </div>
+            <p style="font-size: 80%"><span id="people">0</span>人支持了此项目</p>
+        </div>
+        <div>
+            <p>目标</p>
+            <p>¥<span id="target">0</span></p>
+        </div>
+        <div>
+            <p>余<span id="day">0</span>天</p>
+        </div>
+    </div>
+    <div class="flex-item article">
+        <h2 id="article-title">给小朋友送空气</h2>
+        <p>此众筹项目的钱将用于购买空气净化器，让小朋友在更好的环境中成长。此众筹项目的钱将用于购买空气净化器，让小朋友在更好的环境中成长。此众筹项目的钱将用于购买空气净化器，让小朋友在更好的环境中成长。</p>
+        <p>此众筹项目的钱将用于购买空气净化器，让小朋友在更好的环境中成长。此众筹项目的钱将用于购买空气净化器，让小朋友在更好的环境中成长。此众筹项目的钱将用于购买空气净化器，让小朋友在更好的环境中成长。</p>
+        <p>此众筹项目的钱将用于购买空气净化器，让小朋友在更好的环境中成长。此众筹项目的钱将用于购买空气净化器，让小朋友在更好的环境中成长。此众筹项目的钱将用于购买空气净化器，让小朋友在更好的环境中成长。</p>
+    </div>
+    <div id="btn-support">我要支持</div>
+</div>
+
+<div class="my-container" id="container-pay">
+    <div id="mask"></div>
+    <div id="pay-panel">
+        <div id="title-support">支持他们</div>
+        <div class="container-btns">
+            <div class="container-btns-row">
+                <div class="btn-money">10元</div>
+                <div class="btn-money">20元</div>
+            </div>
+            <div class="container-btns-row">
+                <div class="btn-money">50元</div>
+                <div class="btn-money">100元</div>
+            </div>
+
+        </div>
+        <div id="btn-pay">立即支付</div>
+    </div>
+
+</div>
+
+
+</body>
+</html>
